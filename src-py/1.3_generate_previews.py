@@ -3,7 +3,7 @@ import os
 from openai import OpenAI
 from dotenv import load_dotenv
 from constants.common import SPLIT
-from lib.cache_manager import CacheManager
+from utils.cache_manager.cache_manager import CacheManager
 import os
 from openai import OpenAI
 from utils.models import UserInformation
@@ -13,12 +13,12 @@ openai = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 cache_manager = CacheManager()
 
-cached_category = cache_manager.state.read_wikipedia_batch_category()
+cached_category = cache_manager.state.read.wikipedia_batch_category()
 category = input(f"Enter Wikipedia category (default {cached_category}): ")
 if category.strip() == "":
     category = cached_category
 
-cached_batch_count = cache_manager.state.read_batch_count() - 1
+cached_batch_count = cache_manager.state.read.output_batch_count() - 1
 batch_count = input(f"Enter batch count (default {cached_batch_count}): ")
 if batch_count.strip() == "":
     batch_count = cached_batch_count

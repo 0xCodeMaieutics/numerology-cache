@@ -1,4 +1,4 @@
-from lib.cache_manager import CacheManager
+from utils.cache_manager.cache_manager import CacheManager
 
 
 number = int(input("Script number:"))

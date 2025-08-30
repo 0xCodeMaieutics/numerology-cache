@@ -1,13 +1,13 @@
-from lib.cache_manager import CacheManager
+from utils.cache_manager.cache_manager import CacheManager
 
 
 cache_manager = CacheManager()
 
 category = input("Enter Wikipedia category: ")
 if category.strip() == "":
-    category = cache_manager.state.read_wikipedia_batch_category()
+    category = cache_manager.state.read.wikipedia_batch_category()
 
-input_count = cache_manager.state.read_input_batch_count()
+input_count = cache_manager.state.read.input_batch_count()
 
 batches = [
     "Donald_Trump",

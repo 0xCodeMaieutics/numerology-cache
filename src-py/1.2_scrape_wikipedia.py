@@ -2,20 +2,20 @@
 from selenium import webdriver
 from dotenv import load_dotenv
 from constants.common import SPLIT
-from lib.cache_manager import CacheManager, WikipediaScraper
+from utils.cache_manager.cache_manager import CacheManager, WikipediaScraper
 
 driver = webdriver.Chrome()
 
 cache_manager = CacheManager()
 wikipedia_scraper = WikipediaScraper(driver)
 
-cached_category = cache_manager.state.read_wikipedia_batch_category()
+cached_category = cache_manager.state.read.wikipedia_batch_category()
 category = input(f"Enter Wikipedia category (default {cached_category}): ")
 if category.strip() == "":
     category = cached_category
 
 print(f"Current category: {category}")
-cached_input_batch_count = cache_manager.state.read_input_batch_count() - 1
+cached_input_batch_count = cache_manager.state.read.input_batch_count() - 1
 input_batch_count = input(
     f"Enter input batch count (default {cached_input_batch_count}): ")
 if input_batch_count.strip() == "":
@@ -32,7 +32,7 @@ print(f"Current input count for {category}: {input_batch_count}")
 names_to_search_for = cache_manager.scrapings.wikipedia.read_celeb_paths(
     category, input_batch_count)
 
-batch_count = cache_manager.state.read_batch_count()
+batch_count = cache_manager.state.read.output_batch_count()
 
 for name in names_to_search_for:
     driver.get(f"https://en.wikipedia.org/wiki/{name}")
