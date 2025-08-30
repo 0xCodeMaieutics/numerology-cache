@@ -34,8 +34,9 @@ for name in names_to_search_for:
         bio_image_url = wikipedia_scraper.find_bio_image_url(
             bio_container_wrapper)
 
-        wiki_batch_content = bio_container_wrapper.text + \
-            f"\nIMAGE_URL: {bio_image_url}\n{SPLIT}\n"
+        if bio_image_url is not None:
+            wiki_batch_content = bio_container_wrapper.text + \
+                f"\nIMAGE_URL: {bio_image_url}\n{SPLIT}\n"
 
         cache_manager.scrapings.wikipedia.append_batch(category,
                                                        batch_count, wiki_batch_content)
