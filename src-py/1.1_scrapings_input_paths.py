@@ -1,12 +1,9 @@
 from utils.cache_manager.cache_manager import CacheManager
-
+from utils.inputs import input_category
 
 cache_manager = CacheManager()
 
-category = input("Enter Wikipedia category: ")
-if category.strip() == "":
-    category = cache_manager.state.read.wikipedia_batch_category()
-
+category = input_category()
 input_count = cache_manager.state.read.input_batch_count()
 
 batches = [
@@ -23,4 +20,5 @@ batches = [
 
 cache_manager.scrapings.wikipedia.add_input_paths(
     batches, category, input_count)
+
 cache_manager.state.update_input_batch_count(input_count + 1)

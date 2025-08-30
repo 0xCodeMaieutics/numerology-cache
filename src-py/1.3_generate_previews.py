@@ -7,27 +7,18 @@ from utils.cache_manager.cache_manager import CacheManager
 import os
 from openai import OpenAI
 from utils.models import UserInformation
+from utils.inputs import input_batch_count, input_category
 
 load_dotenv()
 openai = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 cache_manager = CacheManager()
 
-cached_category = cache_manager.state.read.wikipedia_batch_category()
-category = input(f"Enter Wikipedia category (default {cached_category}): ")
-if category.strip() == "":
-    category = cached_category
-
+category = input_category()
+print(f"Category: {category}")
 cached_batch_count = cache_manager.state.read.output_batch_count() - 1
-batch_count = input(f"Enter batch count (default {cached_batch_count}): ")
-if batch_count.strip() == "":
-    batch_count = cached_batch_count
-else:
-    try:
-        batch_count = int(batch_count)
-    except ValueError:
-        print("Invalid input. Using default batch count.")
-        batch_count = cached_batch_count
+batch_count = input_batch_count()
+print(f"Batch count: {batch_count}")
 
 batch_list = cache_manager.scrapings.wikipedia.read_output_batch_list(
     category, batch_count)

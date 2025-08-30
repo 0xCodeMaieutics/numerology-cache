@@ -2,35 +2,24 @@
 from selenium import webdriver
 from dotenv import load_dotenv
 from constants.common import SPLIT
-from utils.cache_manager.cache_manager import CacheManager, WikipediaScraper
+from utils.cache_manager.cache_manager import CacheManager
+from utils.scrapers.wikipedia_scraper import WikipediaScraper
+from utils.inputs import input_category, input_batch_count
 
 driver = webdriver.Chrome()
 
 cache_manager = CacheManager()
 wikipedia_scraper = WikipediaScraper(driver)
 
-cached_category = cache_manager.state.read.wikipedia_batch_category()
-category = input(f"Enter Wikipedia category (default {cached_category}): ")
-if category.strip() == "":
-    category = cached_category
-
+category = input_category()
 print(f"Current category: {category}")
-cached_input_batch_count = cache_manager.state.read.input_batch_count() - 1
-input_batch_count = input(
-    f"Enter input batch count (default {cached_input_batch_count}): ")
-if input_batch_count.strip() == "":
-    input_batch_count = cached_input_batch_count
-else:
-    try:
-        input_batch_count = int(input_batch_count)
-    except ValueError:
-        print("Invalid input. Using default batch count.")
-        input_batch_count = cached_input_batch_count
 
-print(f"Current input count for {category}: {input_batch_count}")
+batch_count = input_batch_count()
+
+print(f"Current input count for {category}: {batch_count}")
 
 names_to_search_for = cache_manager.scrapings.wikipedia.read_celeb_paths(
-    category, input_batch_count)
+    category, batch_count)
 
 batch_count = cache_manager.state.read.output_batch_count()
 
