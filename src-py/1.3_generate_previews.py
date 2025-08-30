@@ -16,7 +16,7 @@ cache_manager = CacheManager()
 
 category = input_category()
 print(f"Category: {category}")
-cached_batch_count = cache_manager.state.read.output_batch_count() - 1
+
 batch_count = input_batch_count()
 print(f"Batch count: {batch_count}")
 
