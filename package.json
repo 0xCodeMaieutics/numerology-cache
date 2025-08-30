@@ -1,6 +1,15 @@
 {
   "type": "module",
   "dependencies": {
-    "date-fns": "^4.1.0"
+    "@neondatabase/serverless": "^1.0.1",
+    "@upstash/redis": "^1.35.3",
+    "date-fns": "^4.1.0",
+    "dotenv": "^17.2.1",
+    "drizzle-orm": "^0.44.5"
+  },
+  "devDependencies": {
+    "@types/node": "22",
+    "colors": "^1.4.0",
+    "drizzle-kit": "^0.31.4"
   }
 }
