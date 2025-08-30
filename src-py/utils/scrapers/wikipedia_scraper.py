@@ -25,7 +25,11 @@ class WikipediaScraper():
         return None
 
     def find_bio_image_url(self, bio_container_wrapper):
-        img = bio_container_wrapper.find_element(
-            By.CSS_SELECTOR, "img.mw-file-element"
-        )
-        return img.get_attribute("src")
+
+        try:
+            img = bio_container_wrapper.find_element(
+                By.CSS_SELECTOR, "img"
+            )
+            return img.get_attribute("src")
+        except Exception:
+            return None
